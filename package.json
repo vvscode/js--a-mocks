@@ -1,0 +1,19 @@
+{
+  "name": "a-mocks",
+  "version": "0.0.0",
+  "description": "Mock-tools for apollo project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vvscode/js--a-mocks.git"
+  },
+  "author": "vvscode",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vvscode/js--a-mocks/issues"
+  },
+  "homepage": "https://github.com/vvscode/js--a-mocks#readme"
+}
