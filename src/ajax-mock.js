@@ -1,15 +1,13 @@
 (function() {
-  var $ = window.jQuery;
+  const $ = window.jQuery;
 
-  var readyDelay = 20; // seconds
-  var readyDelayTimer;
-  var cache = [];
-  var tmpCache = [];
-  var notMockedRequests = [];
+  let readyDelay = 20; // seconds
+  let readyDelayTimer;
+  let cache = [];
+  const tmpCache = [];
+  const notMockedRequests = [];
 
-  function isEqual(a, b) {
-    return window._.isEqual(a, b);
-  }
+  const isEqual = (a, b) => window._.isEqual(a, b);
 
   function getRequestSettingsForCacheItem(reqSettings) {
     var data = reqSettings.data;
