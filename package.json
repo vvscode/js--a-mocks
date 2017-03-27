@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/vvscode/js--a-mocks#readme",
   "devDependencies": {
+    "gulp": "3.9.1",
+    "gulp-concat": "2.6.1",
     "jquery-mockjax": "git+https://github.com/vvscode/jquery-mockjax.git"
   }
 }
