@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/vvscode/js--a-mocks/issues"
   },
-  "homepage": "https://github.com/vvscode/js--a-mocks#readme"
+  "homepage": "https://github.com/vvscode/js--a-mocks#readme",
+  "devDependencies": {
+    "jquery-mockjax": "git+https://github.com/vvscode/jquery-mockjax.git"
+  }
 }
