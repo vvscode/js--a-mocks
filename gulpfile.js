@@ -1,15 +1,13 @@
 const gulp = require('gulp');
 const concat = require('gulp-concat');
 const babel = require('gulp-babel');
+const rollup = require('gulp-better-rollup');
 
-gulp.task('scripts', () => gulp.src([
-    './node_modules/jquery-mockjax/dist/jquery.mockjax.js',
-    './src/ajax-mock.js',
-    './src/socket-mock.js',
-  ])
-  .pipe(babel({
-    presets: ['es2015']
-  }))
+gulp.task('scripts', () => gulp
+  .src('src/index.js')
+  .pipe(rollup({
+    plugins: [babel()]
+  }, 'iife'))
   .pipe(concat('mock-tools.js', {
     newLine: ';'
   }))

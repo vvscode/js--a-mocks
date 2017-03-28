@@ -7,6 +7,9 @@ module.exports = {
     "parserOptions": {
         "sourceType": "module"
     },
+    "globals": {
+        "require": false,
+    },
     "rules": {
         "accessor-pairs": "error",
         "array-bracket-spacing": "error",
@@ -59,7 +62,7 @@ module.exports = {
         "consistent-this": "error",
         "curly": "off",
         "default-case": "error",
-        "dot-location": "error",
+        "dot-location": ["error", "property"],
         "dot-notation": "error",
         "eol-last": "error",
         "eqeqeq": "error",
