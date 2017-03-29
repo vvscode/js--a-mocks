@@ -1,4 +1,6 @@
-(function() {
+import { isEqual } from './utils/isEqual.2';
+
+(function () {
   var cache = [];
   var tmpCache = {};
   var notMockedRequests = [];
@@ -24,10 +26,6 @@
 
   function deepClone(obj) {
     return window._.clone(obj, true);
-  }
-
-  function isEqual(a, b) {
-    return window._.isEqual(a, b);
   }
 
   function getRequestId(str) {
