@@ -1,6 +1,7 @@
 import { isEqual } from './utils/isEqual';
+import { deepClone } from './utils/deepClone';
 
-(function () {
+(function() {
   var cache = [];
   var tmpCache = {};
   var notMockedRequests = [];
@@ -24,12 +25,8 @@ import { isEqual } from './utils/isEqual';
     return '4::/' + resource + '/:' + JSON.stringify(hash);
   }
 
-  function deepClone(obj) {
-    return window._.clone(obj, true);
-  }
-
   function getRequestId(str) {
-    return "" + (str.match(/"request_id":"(\w+\-\w+\-.+?)"/, '') || []).pop();
+    return '' + (str.match(/"request_id":"(\w+\-\w+\-.+?)"/, '') || []).pop();
   }
 
   function removeRequestId(str, id) {
@@ -89,7 +86,6 @@ import { isEqual } from './utils/isEqual';
     var resource = getResource(msgWithoudId);
     var cacheItem = findCacheItemForRequest(resource, payload);
     return cacheItem;
-
   }
 
   function mockSocketIo() {
@@ -101,13 +97,15 @@ import { isEqual } from './utils/isEqual';
       this.transport.websocket.onmessage = function(ev) {
         var msg = ev.data;
         var id = getRequestId(msg);
-        if (tmpCache[id] && isResponse(msg) && window._socketCache.collectMocks) {
+        if (
+          tmpCache[id] && isResponse(msg) && window._socketCache.collectMocks
+        ) {
           cache.push({
             resource: getResource(msg),
             request: messageToPayload(tmpCache[id]),
             response: messageToPayload(removeRequestId(msg, id)),
             name: 'Collected automatically',
-            description: window.location.href
+            description: window.location.href,
           });
           delete tmpCache[id];
         }
@@ -122,24 +120,36 @@ import { isEqual } from './utils/isEqual';
           var cacheItem;
           var msgId = getRequestId(msg);
 
-          if (window._socketCache.useCache && (cacheItem = findCacheItem(msg))) {
-            return setTimeout(function() {
-              if (window._socketCache.removeMockItemOnUse) {
-                removeItemFromCache(cacheItem);
-              }
+          if (
+            window._socketCache.useCache && (cacheItem = findCacheItem(msg))
+          ) {
+            return setTimeout(
+              (function() {
+                if (window._socketCache.removeMockItemOnUse) {
+                  removeItemFromCache(cacheItem);
+                }
 
-              this.onmessage({ data: responseHashToMessage(cacheItem.resource, getResponseWithId(cacheItem.response, msgId)) });
-            }.bind(this), 0);
+                this.onmessage({
+                  data: responseHashToMessage(
+                    cacheItem.resource,
+                    getResponseWithId(cacheItem.response, msgId)
+                  )
+                });
+              }).bind(this),
+              0
+            );
           } else if (window._socketCache.useCache && isReq) {
-            var notFoundedMockItem =  {
+            var notFoundedMockItem = {
               resource: getResource(msg),
               request: messageToPayload(removeRequestId(msg, msgId)),
-              description: window.location.href
+              description: window.location.href,
             };
 
             notMockedRequests.push(notFoundedMockItem);
             if (typeof window._socketCache.onNotMockNotFound === 'function') {
-              ret = !(window._socketCache.onNotMockNotFound(notFoundedMockItem) === false);
+              ret = !(window._socketCache.onNotMockNotFound(
+                notFoundedMockItem,
+              ) === false);
             }
           }
 
@@ -154,10 +164,12 @@ import { isEqual } from './utils/isEqual';
     };
 
     window._socketCache = {
-      useCache:  !!document.cookie.match('socketMocks_useCache'),
-      collectMocks:  !!document.cookie.match('socketMocks_collectMocks'),
-      removeMockItemOnUse:  !!document.cookie.match('socketMocks_removeMockItemOnUse'),
-      onNotMockNotFound: function(notFoundedMockItem) { },
+      useCache: !!document.cookie.match('socketMocks_useCache'),
+      collectMocks: !!document.cookie.match('socketMocks_collectMocks'),
+      removeMockItemOnUse: !!document.cookie.match(
+        'socketMocks_removeMockItemOnUse',
+      ),
+      onNotMockNotFound: function(notFoundedMockItem) {},
       getCache: function() {
         return cache;
       },
@@ -182,7 +194,7 @@ import { isEqual } from './utils/isEqual';
       },
       getNotMockedRequests: function() {
         return notMockedRequests;
-      }
+      },
     };
   }
 

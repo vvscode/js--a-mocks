@@ -33,7 +33,7 @@ function getRequestSettingsForCacheItem(reqSettings) {
       url: reqSettings.url,
       type: reqSettings.type,
       data: data,
-    }),
+    })
   );
 }
 
@@ -127,7 +127,7 @@ function mockAjax() {
       requestSettings._origSettings.success = function(
         response,
         textStatus,
-        jqXHR,
+        jqXHR
       ) {
         var responseBody = jqXHR.responseText;
         try {
