@@ -1,4 +1,4 @@
-import { isEqual } from './utils/isEqual.2';
+import { isEqual } from './utils/isEqual';
 
 (function () {
   var cache = [];
